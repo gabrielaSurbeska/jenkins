@@ -1,16 +1,18 @@
-node {
-    def app
-    stage('Clone repository') {
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone repository') {
         checkout scm
     }
     stage('Build image') {
-       app = docker.build("gabrielasurbeska/jenkins")
+       app = docker.build("gabrielaSurbeska/jenkins")
     }
     stage('Push image') {   
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-            app.push("${env.BRANCH_NAME}-${env.BUILD_NUMBER}")
-            app.push("${env.BRANCH_NAME}-latest")
+	@@ -13,4 +15,5 @@ node {
             // signal the orchestrator that there is a new version
         }
     }
+  }
 }
