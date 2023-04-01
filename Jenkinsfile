@@ -1,12 +1,10 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('Clone repository') {
+node {
+    def app
+    stage('Clone repository') {
         checkout scm
     }
     stage('Build image') {
-       app = docker.build("gabrielasurbeska/jenkins")
+       app = docker.build("gabrielaSurbeska/jenkins")
     }
     stage('Push image') {   
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
@@ -15,5 +13,4 @@ pipeline {
             // signal the orchestrator that there is a new version
         }
     }
-  }
 }
