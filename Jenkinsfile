@@ -1,6 +1,8 @@
-node {
-    def app
-    stage('Clone repository') {
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone repository') {
         checkout scm
     }
     stage('Build image') {
@@ -13,4 +15,5 @@ node {
             // signal the orchestrator that there is a new version
         }
     }
+  }
 }
