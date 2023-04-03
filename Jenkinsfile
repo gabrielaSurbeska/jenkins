@@ -4,7 +4,7 @@ node {
         checkout scm
     }
     stage('Build image') {
-       app = docker.build("gabrielaSurbeska/jenkinss")
+       app = docker.build("gabrielasurbeska/jenkinss")
     }
     stage('Push image') {   
         docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
